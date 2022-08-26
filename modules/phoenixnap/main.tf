@@ -60,7 +60,11 @@ resource "pnap_server" "bastion_host" {
   ssh_keys = [
     var.ssh_key.public_key
   ]
+  management_access_allowed_ips = ["0.0.0.0/0"]
   network_configuration {
+    ip_blocks_configuration {
+      configuration_type = "NONE"
+    }
     public_network_configuration {
       public_networks {
         server_public_network {
@@ -69,6 +73,7 @@ resource "pnap_server" "bastion_host" {
         }
       }
     }
+    gateway_address = cidrhost(local.ip_block.cidr, 1)
   }
   lifecycle {
     ignore_changes = all
@@ -90,7 +95,11 @@ resource "pnap_server" "esxi_hosts" {
   ssh_keys = [
     var.ssh_key.public_key
   ]
+  management_access_allowed_ips = ["0.0.0.0/0"]
   network_configuration {
+    ip_blocks_configuration {
+      configuration_type = "NONE"
+    }
     public_network_configuration {
       public_networks {
         server_public_network {
@@ -99,6 +108,7 @@ resource "pnap_server" "esxi_hosts" {
         }
       }
     }
+    gateway_address = cidrhost(local.ip_block.cidr, 1)
   }
   lifecycle {
     ignore_changes = all
