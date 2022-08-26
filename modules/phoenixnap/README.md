@@ -13,4 +13,12 @@
 | <a name="input_vsphere_os"></a> [vsphere\_os](#input\_vsphere\_os) | This is the version of vSphere that you want to deploy (ESXi 7.0 have been tested) | `string` | `"vmware_esxi_7_0"` | no |
 | <a name="input_bastion_os"></a> [bastion\_os](#input\_bastion\_os) | This is the operating system for the bastion host (Ubuntu 20.04 has been tested) | `string` | `"ubuntu_20_04"` | no |
 | <a name="input_ssh_key"></a> [ssh\_key](#input\_ssh\_key) | SSH Public and Private Key | <pre>object({<br>    public_key  = string<br>    private_key = string<br>  })</pre> | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_esxi_host_ips"></a> [esxi\_host\_ips](#output\_esxi\_host\_ips) | n/a |
+| <a name="output_esxi_host_passwords"></a> [esxi\_host\_passwords](#output\_esxi\_host\_passwords) | n/a |
+| <a name="output_esxi_mgmt_url"></a> [esxi\_mgmt\_url](#output\_esxi\_mgmt\_url) | n/a |
 <!-- END_TF_DOCS -->

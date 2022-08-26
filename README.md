@@ -32,4 +32,12 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | <a name="input_pnap_esxi_type"></a> [pnap\_esxi\_type](#input\_pnap\_esxi\_type) | PhoenixNAP server type to deploy for esxi nodes | `string` | `"s2.c1.medium"` | no |
 | <a name="input_pnap_create_network"></a> [pnap\_create\_network](#input\_pnap\_create\_network) | Create a new network if this is 'true'. Else use provided 'pnap\_network\_name' | `bool` | `false` | no |
 | <a name="input_pnap_network_name"></a> [pnap\_network\_name](#input\_pnap\_network\_name) | The name of the network to use when creating servers in PNAP | `string` | `"null"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_esxi_host_ips"></a> [esxi\_host\_ips](#output\_esxi\_host\_ips) | n/a |
+| <a name="output_esxi_host_passwords"></a> [esxi\_host\_passwords](#output\_esxi\_host\_passwords) | n/a |
+| <a name="output_esxi_mgmt_url"></a> [esxi\_mgmt\_url](#output\_esxi\_mgmt\_url) | n/a |
 <!-- END_TF_DOCS -->
