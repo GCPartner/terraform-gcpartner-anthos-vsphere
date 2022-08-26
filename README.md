@@ -1,2 +1,3 @@
-# terraform-gcpartner-anthos-vsphere
-Automatically deploy Anthos on vSphere to multiple Infrastructure providers
+[![Anthos on vSphere Website](https://img.shields.io/badge/Website-cloud.google.com/anthos-blue)](https://cloud.google.com/anthos) [![Apache License](https://img.shields.io/github/license/GCPartner/terraform-gcpartner-anthos-vsphere)](https://github.com/GCPartner/terraform-gcpartner-anthos-vsphere/blob/main/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/GCPartner/terraform-gcpartner-anthos-vsphere/pulls) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
+# Google Anthos on vSphere
+This [Terraform](http://terraform.io) module will allow you to deploy [Google Cloud's Anthos on vSphere](https://cloud.google.com/anthos) on Multiple different Clouds (PhoenixNAP, & Equinix Metal)
