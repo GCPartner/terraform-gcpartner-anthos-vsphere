@@ -8,7 +8,8 @@
 | <a name="input_pnap_bastion_type"></a> [pnap\_bastion\_type](#input\_pnap\_bastion\_type) | PhoenixNAP server type to deploy for the bastion host | `string` | n/a | yes |
 | <a name="input_pnap_esxi_type"></a> [pnap\_esxi\_type](#input\_pnap\_esxi\_type) | PhoenixNAP server type to deploy for esxi nodes | `string` | n/a | yes |
 | <a name="input_pnap_create_network"></a> [pnap\_create\_network](#input\_pnap\_create\_network) | Create a new network if this is 'true'. Else use provided 'pnap\_network\_name' | `bool` | n/a | yes |
-| <a name="input_pnap_network_name"></a> [pnap\_network\_name](#input\_pnap\_network\_name) | The name of the network to use when creating servers in PNAP | `string` | n/a | yes |
+| <a name="input_pnap_pub_network_id"></a> [pnap\_pub\_network\_id](#input\_pnap\_pub\_network\_id) | The id of the public network to use when creating servers in PNAP | `string` | n/a | yes |
+| <a name="input_pnap_priv_network_id"></a> [pnap\_priv\_network\_id](#input\_pnap\_priv\_network\_id) | The id of the private network to use when creating servers in PNAP | `string` | n/a | yes |
 | <a name="input_vcenter_cluster_name"></a> [vcenter\_cluster\_name](#input\_vcenter\_cluster\_name) | This will be the name of the vCenter Cluster object. | `string` | n/a | yes |
 | <a name="input_vsphere_os"></a> [vsphere\_os](#input\_vsphere\_os) | This is the version of vSphere that you want to deploy (ESXi 7.0 have been tested) | `string` | `"vmware_esxi_7_0"` | no |
 | <a name="input_bastion_os"></a> [bastion\_os](#input\_bastion\_os) | This is the operating system for the bastion host (Ubuntu 20.04 has been tested) | `string` | `"ubuntu_20_04"` | no |
@@ -18,7 +19,11 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_esxi_host_ips"></a> [esxi\_host\_ips](#output\_esxi\_host\_ips) | n/a |
-| <a name="output_esxi_host_passwords"></a> [esxi\_host\_passwords](#output\_esxi\_host\_passwords) | n/a |
-| <a name="output_esxi_mgmt_url"></a> [esxi\_mgmt\_url](#output\_esxi\_mgmt\_url) | n/a |
+| <a name="output_esxi_pub_ips"></a> [esxi\_pub\_ips](#output\_esxi\_pub\_ips) | The public IPs of the ESXi hosts. |
+| <a name="output_esxi_priv_ips"></a> [esxi\_priv\_ips](#output\_esxi\_priv\_ips) | The private IPs for the ESXI hosts. |
+| <a name="output_esxi_passwords"></a> [esxi\_passwords](#output\_esxi\_passwords) | The root passwords for the ESXi hosts |
+| <a name="output_bastion_ip"></a> [bastion\_ip](#output\_bastion\_ip) | Bastion Host IP |
+| <a name="output_bastion_user"></a> [bastion\_user](#output\_bastion\_user) | Bastion Host username |
+| <a name="output_pub_vlan_id"></a> [pub\_vlan\_id](#output\_pub\_vlan\_id) | Public Networks vLan ID |
+| <a name="output_priv_vlan_id"></a> [priv\_vlan\_id](#output\_priv\_vlan\_id) | Private Networks vLan ID |
 <!-- END_TF_DOCS -->

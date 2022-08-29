@@ -25,19 +25,29 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | <a name="input_path_to_gcs_key"></a> [path\_to\_gcs\_key](#input\_path\_to\_gcs\_key) | If you are using GCS to download your vCenter ISO this is the absolute path to the GCS key (ex: /home/example/storage-reader-key.json) | `string` | `"null"` | no |
 | <a name="input_relative_path_to_gcs_key"></a> [relative\_path\_to\_gcs\_key](#input\_relative\_path\_to\_gcs\_key) | (Deprecated: use path\_to\_gcs\_key) If you are using GCS to download your vCenter ISO this is the path to the GCS key | `string` | `"null"` | no |
 | <a name="input_vcenter_iso_name"></a> [vcenter\_iso\_name](#input\_vcenter\_iso\_name) | The name of the vCenter ISO in your Object Store | `string` | `"null"` | no |
+| <a name="input_ansible_playbook_version"></a> [ansible\_playbook\_version](#input\_ansible\_playbook\_version) | The version of the ansible playbook to install | `string` | `"v0.0.1"` | no |
+| <a name="input_ansible_url"></a> [ansible\_url](#input\_ansible\_url) | URL of the ansible code | `string` | `"https://github.com/GCPartner/ansible-gcpartner-anthos-vsphere/archive/refs/tags/v0.0.1.tar.gz"` | no |
+| <a name="input_ansible_tar_ball"></a> [ansible\_tar\_ball](#input\_ansible\_tar\_ball) | Tarball of the ansible code | `string` | `"v0.0.1.tar.gz"` | no |
 | <a name="input_pnap_client_id"></a> [pnap\_client\_id](#input\_pnap\_client\_id) | PhoenixNAP API ID | `string` | `"null"` | no |
 | <a name="input_pnap_client_secret"></a> [pnap\_client\_secret](#input\_pnap\_client\_secret) | PhoenixNAP API Secret | `string` | `"null"` | no |
 | <a name="input_pnap_location"></a> [pnap\_location](#input\_pnap\_location) | PhoenixNAP Location to deploy into | `string` | `"ASH"` | no |
 | <a name="input_pnap_bastion_type"></a> [pnap\_bastion\_type](#input\_pnap\_bastion\_type) | PhoenixNAP server type to deploy for the bastion host | `string` | `"s2.c1.medium"` | no |
 | <a name="input_pnap_esxi_type"></a> [pnap\_esxi\_type](#input\_pnap\_esxi\_type) | PhoenixNAP server type to deploy for esxi nodes | `string` | `"s2.c1.medium"` | no |
 | <a name="input_pnap_create_network"></a> [pnap\_create\_network](#input\_pnap\_create\_network) | Create a new network if this is 'true'. Else use provided 'pnap\_network\_name' | `bool` | `false` | no |
-| <a name="input_pnap_network_name"></a> [pnap\_network\_name](#input\_pnap\_network\_name) | The name of the network to use when creating servers in PNAP | `string` | `"null"` | no |
+| <a name="input_pnap_pub_network_id"></a> [pnap\_pub\_network\_id](#input\_pnap\_pub\_network\_id) | The id of the public network to use when creating servers in PNAP | `string` | `"null"` | no |
+| <a name="input_pnap_priv_network_id"></a> [pnap\_priv\_network\_id](#input\_pnap\_priv\_network\_id) | The id of the private network to use when creating servers in PNAP | `string` | `"null"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_esxi_host_ips"></a> [esxi\_host\_ips](#output\_esxi\_host\_ips) | n/a |
-| <a name="output_esxi_host_passwords"></a> [esxi\_host\_passwords](#output\_esxi\_host\_passwords) | n/a |
-| <a name="output_esxi_mgmt_url"></a> [esxi\_mgmt\_url](#output\_esxi\_mgmt\_url) | n/a |
+| <a name="output_esxi_pub_ips"></a> [esxi\_pub\_ips](#output\_esxi\_pub\_ips) | The public IPs of the ESXi hosts. |
+| <a name="output_esxi_priv_ips"></a> [esxi\_priv\_ips](#output\_esxi\_priv\_ips) | The private IPs for the ESXI hosts. |
+| <a name="output_esxi_passwords"></a> [esxi\_passwords](#output\_esxi\_passwords) | The root passwords for the ESXi hosts |
+| <a name="output_bastion_ip"></a> [bastion\_ip](#output\_bastion\_ip) | IP Address of the bastion host in the test environment |
+| <a name="output_ssh_key_path"></a> [ssh\_key\_path](#output\_ssh\_key\_path) | Path to the SSH Private key for the bastion host |
+| <a name="output_ssh_command"></a> [ssh\_command](#output\_ssh\_command) | Command to run to SSH into the bastion host |
+| <a name="output_bastion_host_username"></a> [bastion\_host\_username](#output\_bastion\_host\_username) | Username for the bastion host in the test environment |
+| <a name="output_pub_vlan_id"></a> [pub\_vlan\_id](#output\_pub\_vlan\_id) | Public Networks vLan ID |
+| <a name="output_priv_vlan_id"></a> [priv\_vlan\_id](#output\_priv\_vlan\_id) | Private Networks vLan ID |
 <!-- END_TF_DOCS -->
