@@ -110,6 +110,24 @@ variable "vcenter_iso_name" {
   default     = "null"
 }
 
+# Ansible Vars
+variable "ansible_playbook_version" {
+  type        = string
+  description = "The version of the ansible playbook to install"
+  default     = "v0.0.1"
+}
+
+variable "ansible_url" {
+  type        = string
+  description = "URL of the ansible code"
+  default     = "https://github.com/GCPartner/ansible-gcpartner-anthos-vsphere/archive/refs/tags/v0.0.1.tar.gz"
+}
+
+variable "ansible_tar_ball" {
+  type        = string
+  description = "Tarball of the ansible code"
+  default     = "v0.0.1.tar.gz"
+}
 
 # PNAP Vars
 variable "pnap_client_id" {
@@ -148,8 +166,15 @@ variable "pnap_create_network" {
   description = "Create a new network if this is 'true'. Else use provided 'pnap_network_name'"
 }
 
-variable "pnap_network_name" {
+variable "pnap_pub_network_id" {
   type        = string
   default     = "null"
-  description = "The name of the network to use when creating servers in PNAP"
+  description = "The id of the public network to use when creating servers in PNAP"
 }
+
+variable "pnap_priv_network_id" {
+  type        = string
+  default     = "null"
+  description = "The id of the private network to use when creating servers in PNAP"
+}
+

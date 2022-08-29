@@ -23,9 +23,14 @@ variable "pnap_create_network" {
   description = "Create a new network if this is 'true'. Else use provided 'pnap_network_name'"
 }
 
-variable "pnap_network_name" {
+variable "pnap_pub_network_id" {
   type        = string
-  description = "The name of the network to use when creating servers in PNAP"
+  description = "The id of the public network to use when creating servers in PNAP"
+}
+
+variable "pnap_priv_network_id" {
+  type        = string
+  description = "The id of the private network to use when creating servers in PNAP"
 }
 
 variable "vcenter_cluster_name" {
