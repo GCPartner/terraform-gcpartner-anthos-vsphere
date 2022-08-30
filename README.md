@@ -8,9 +8,10 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cloud"></a> [cloud](#input\_cloud) | PNAP (Phoenix Nap) or EQM (Equinx Metal)to deploy the 'Nodes' | `string` | `"PNAP"` | no |
-| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | How many ESXi nodes to deploy | `number` | `3` | no |
+| <a name="input_esx_node_count"></a> [esx\_node\_count](#input\_esx\_node\_count) | How many esx nodes to deploy | `number` | `3` | no |
 | <a name="input_bastion_os"></a> [bastion\_os](#input\_bastion\_os) | This is the operating system for the bastion host (Ubuntu 20.04 has been tested) | `string` | `"ubuntu_20_04"` | no |
-| <a name="input_vsphere_os"></a> [vsphere\_os](#input\_vsphere\_os) | This is the version of vSphere that you want to deploy (ESXi 7.0 have been tested) | `string` | `"vmware_esxi_7"` | no |
+| <a name="input_gcp_project_id"></a> [gcp\_project\_id](#input\_gcp\_project\_id) | The project ID for GCP | `string` | n/a | yes |
+| <a name="input_vsphere_os"></a> [vsphere\_os](#input\_vsphere\_os) | This is the version of vSphere that you want to deploy (esx 7.0 have been tested) | `string` | `"vmware_esx_7"` | no |
 | <a name="input_vcenter_datacenter_name"></a> [vcenter\_datacenter\_name](#input\_vcenter\_datacenter\_name) | This will be the name of the vCenter Datacenter object. | `string` | `"Google"` | no |
 | <a name="input_vcenter_cluster_name"></a> [vcenter\_cluster\_name](#input\_vcenter\_cluster\_name) | This will be the name of the vCenter Cluster object. | `string` | `"Anthos"` | no |
 | <a name="input_vcenter_domain"></a> [vcenter\_domain](#input\_vcenter\_domain) | This will be the vSphere SSO domain. | `string` | `"vsphere.local"` | no |
@@ -32,7 +33,7 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | <a name="input_pnap_client_secret"></a> [pnap\_client\_secret](#input\_pnap\_client\_secret) | PhoenixNAP API Secret | `string` | `"null"` | no |
 | <a name="input_pnap_location"></a> [pnap\_location](#input\_pnap\_location) | PhoenixNAP Location to deploy into | `string` | `"ASH"` | no |
 | <a name="input_pnap_bastion_type"></a> [pnap\_bastion\_type](#input\_pnap\_bastion\_type) | PhoenixNAP server type to deploy for the bastion host | `string` | `"s2.c1.medium"` | no |
-| <a name="input_pnap_esxi_type"></a> [pnap\_esxi\_type](#input\_pnap\_esxi\_type) | PhoenixNAP server type to deploy for esxi nodes | `string` | `"s2.c1.medium"` | no |
+| <a name="input_pnap_esx_type"></a> [pnap\_esx\_type](#input\_pnap\_esx\_type) | PhoenixNAP server type to deploy for esx nodes | `string` | `"s2.c1.medium"` | no |
 | <a name="input_pnap_create_network"></a> [pnap\_create\_network](#input\_pnap\_create\_network) | Create a new network if this is 'true'. Else use provided 'pnap\_network\_name' | `bool` | `false` | no |
 | <a name="input_pnap_pub_network_id"></a> [pnap\_pub\_network\_id](#input\_pnap\_pub\_network\_id) | The id of the public network to use when creating servers in PNAP | `string` | `"null"` | no |
 | <a name="input_pnap_priv_network_id"></a> [pnap\_priv\_network\_id](#input\_pnap\_priv\_network\_id) | The id of the private network to use when creating servers in PNAP | `string` | `"null"` | no |
@@ -41,9 +42,9 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 
 | Name | Description |
 |------|-------------|
-| <a name="output_esxi_pub_ips"></a> [esxi\_pub\_ips](#output\_esxi\_pub\_ips) | The public IPs of the ESXi hosts. |
-| <a name="output_esxi_priv_ips"></a> [esxi\_priv\_ips](#output\_esxi\_priv\_ips) | The private IPs for the ESXI hosts. |
-| <a name="output_esxi_passwords"></a> [esxi\_passwords](#output\_esxi\_passwords) | The root passwords for the ESXi hosts |
+| <a name="output_esx_pub_ips"></a> [esx\_pub\_ips](#output\_esx\_pub\_ips) | The public IPs of the esx hosts. |
+| <a name="output_esx_priv_ips"></a> [esx\_priv\_ips](#output\_esx\_priv\_ips) | The private IPs for the esx hosts. |
+| <a name="output_esx_passwords"></a> [esx\_passwords](#output\_esx\_passwords) | The root passwords for the esx hosts |
 | <a name="output_bastion_ip"></a> [bastion\_ip](#output\_bastion\_ip) | IP Address of the bastion host in the test environment |
 | <a name="output_ssh_key_path"></a> [ssh\_key\_path](#output\_ssh\_key\_path) | Path to the SSH Private key for the bastion host |
 | <a name="output_ssh_command"></a> [ssh\_command](#output\_ssh\_command) | Command to run to SSH into the bastion host |
