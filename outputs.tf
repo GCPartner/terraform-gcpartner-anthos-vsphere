@@ -1,16 +1,16 @@
-output "esxi_pub_ips" {
-  value       = local.esxi_pub_ips
-  description = "The public IPs of the ESXi hosts."
+output "esx_pub_ips" {
+  value       = local.esx_pub_ips
+  description = "The public IPs of the esx hosts."
 }
 
-output "esxi_priv_ips" {
-  value       = local.esxi_priv_ips
-  description = "The private IPs for the ESXI hosts."
+output "esx_priv_ips" {
+  value       = local.esx_priv_ips
+  description = "The private IPs for the esx hosts."
 }
 
-output "esxi_passwords" {
-  value       = local.esxi_passwords
-  description = "The root passwords for the ESXi hosts"
+output "esx_passwords" {
+  value       = local.esx_passwords
+  description = "The root passwords for the esx hosts"
 }
 
 output "bastion_ip" {

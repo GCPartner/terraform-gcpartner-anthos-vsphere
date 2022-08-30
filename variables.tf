@@ -4,10 +4,10 @@ variable "cloud" {
   description = "PNAP (Phoenix Nap) or EQM (Equinx Metal)to deploy the 'Nodes'"
 }
 
-variable "node_count" {
+variable "esx_node_count" {
   type        = number
   default     = 3
-  description = "How many ESXi nodes to deploy"
+  description = "How many esx nodes to deploy"
 }
 
 variable "bastion_os" {
@@ -16,11 +16,17 @@ variable "bastion_os" {
   default     = "ubuntu_20_04"
 }
 
+# GCP Vars
+variable "gcp_project_id" {
+  type        = string
+  description = "The project ID for GCP"
+}
+
 # vSphere Vars
 variable "vsphere_os" {
-  description = "This is the version of vSphere that you want to deploy (ESXi 7.0 have been tested)"
+  description = "This is the version of vSphere that you want to deploy (esx 7.0 have been tested)"
   type        = string
-  default     = "vmware_esxi_7"
+  default     = "vmware_esx_7"
 }
 
 variable "vcenter_datacenter_name" {
@@ -154,9 +160,9 @@ variable "pnap_bastion_type" {
   default     = "s2.c1.medium"
 }
 
-variable "pnap_esxi_type" {
+variable "pnap_esx_type" {
   type        = string
-  description = "PhoenixNAP server type to deploy for esxi nodes"
+  description = "PhoenixNAP server type to deploy for esx nodes"
   default     = "s2.c1.medium"
 }
 

@@ -1,13 +1,13 @@
 locals {
-  git_repo_name           = "ansible-gcpartner-anthos-baremetal"
+  git_repo_name           = "ansible-gcpartner-anthos-vsphere"
   ansible_execute_timeout = 1800
-  unix_home               = var.username == "root" ? "/root" : "/home/${var.username}"
+  unix_home               = var.bastion_user == "root" ? "/root" : "/home/${var.bastion_user}"
 }
 
 resource "null_resource" "write_ssh_private_key" {
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -25,7 +25,7 @@ resource "null_resource" "write_ssh_private_key" {
 resource "null_resource" "install_ansible" {
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -54,12 +54,10 @@ resource "null_resource" "install_ansible" {
   }
 }
 
-resource "null_resource" "write_gcp_sa_keys" {
-  for_each = var.gcp_sa_keys
-
+resource "null_resource" "write_gcp_master_sa_key" {
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -71,15 +69,15 @@ resource "null_resource" "write_gcp_sa_keys" {
   }
 
   provisioner "file" {
-    content     = base64decode(each.value)
-    destination = "${local.unix_home}/bootstrap/gcp_keys/${each.key}.json"
+    content     = base64decode(var.gcp_master_sa_key)
+    destination = "${local.unix_home}/bootstrap/gcp_keys/master_sa_key.json"
   }
 }
 
 resource "null_resource" "download_ansible_playbook" {
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -103,7 +101,7 @@ resource "null_resource" "write_ansible_inventory_header" {
 
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -111,29 +109,31 @@ resource "null_resource" "write_ansible_inventory_header" {
   provisioner "remote-exec" {
     inline = [
       "echo '[all:vars]' > $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'private_subnet=${var.private_subnet}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo 'pub_cidr=${var.pub_cidr}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo 'priv_cidr=${var.priv_cidr}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
       "echo 'cluster_name=${var.cluster_name}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'username=${var.username}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'cp_node_count=${var.cp_node_count}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'worker_node_count=${var.worker_node_count}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo 'username=${var.bastion_user}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo 'esx_node_count=${var.esx_node_count}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
       "echo 'gcp_project_id=${var.gcp_project_id}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
       "echo home_path=$HOME >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '[bootstrap_node]' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo '[bastion]' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
       "echo '127.0.0.1' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '[cp_nodes]' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
+      "echo '[vcenter]' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo '${cidrhost(var.priv_cidr, 4)}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
+      "echo '[esx]' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
     ]
   }
 }
 
-resource "null_resource" "write_cp_nodes_to_ansible_inventory" {
-  count = var.cp_node_count
+resource "null_resource" "write_esx_nodes_to_ansible_inventory" {
+  count = var.esx_node_count
   depends_on = [
     null_resource.write_ansible_inventory_header
   ]
 
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
@@ -141,47 +141,7 @@ resource "null_resource" "write_cp_nodes_to_ansible_inventory" {
   provisioner "remote-exec" {
     inline = [
       "sleep ${count.index + 1}",
-      "echo '${var.cp_ips[count.index]}' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
-    ]
-  }
-}
-
-resource "null_resource" "write_worker_header_to_ansible_inventory" {
-  depends_on = [
-    null_resource.write_cp_nodes_to_ansible_inventory
-  ]
-
-  connection {
-    type        = "ssh"
-    user        = var.username
-    private_key = var.ssh_key.private_key
-    host        = var.bastion_ip
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "echo '[worker_nodes]' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
-    ]
-  }
-}
-
-resource "null_resource" "write_worker_nodes_to_ansible_inventory" {
-  count = var.worker_node_count
-  depends_on = [
-    null_resource.write_worker_header_to_ansible_inventory
-  ]
-
-  connection {
-    type        = "ssh"
-    user        = var.username
-    private_key = var.ssh_key.private_key
-    host        = var.bastion_ip
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sleep ${count.index + 1}",
-      "echo '${var.worker_ips[count.index]}' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
+      "echo '${var.esx_priv_ips[count.index]}' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
     ]
   }
 }
@@ -189,15 +149,15 @@ resource "null_resource" "write_worker_nodes_to_ansible_inventory" {
 resource "null_resource" "execute_ansible" {
   connection {
     type        = "ssh"
-    user        = var.username
+    user        = var.bastion_user
     private_key = var.ssh_key.private_key
     host        = var.bastion_ip
   }
   depends_on = [
     null_resource.download_ansible_playbook,
-    null_resource.write_worker_nodes_to_ansible_inventory,
+    null_resource.write_esx_nodes_to_ansible_inventory,
     null_resource.install_ansible,
-    null_resource.write_gcp_sa_keys
+    null_resource.write_gcp_master_sa_key
   ]
 
   # INFO: run in while loop, 3 times
@@ -218,4 +178,3 @@ resource "null_resource" "execute_ansible" {
     ]
   }
 }
-

@@ -1,14 +1,16 @@
-output "esxi_pub_ips" {
-  value       = [for pub_ip in pnap_server.esxi_hosts.*.public_ip_addresses : element(tolist(pub_ip), 0)]
-  description = "The public IPs of the ESXi hosts."
+output "esx_pub_ips" {
+  value       = [for pub_ip in pnap_server.esx_hosts.*.public_ip_addresses : element(tolist(pub_ip), 0)]
+  description = "The public IPs of the esx hosts."
 }
-output "esxi_priv_ips" {
-  value       = [for priv_ip in pnap_server.esxi_hosts.*.private_ip_addresses : element(tolist(priv_ip), 0)]
-  description = "The private IPs for the ESXI hosts."
+
+output "esx_priv_ips" {
+  value       = [for priv_ip in pnap_server.esx_hosts.*.private_ip_addresses : element(tolist(priv_ip), 0)]
+  description = "The private IPs for the esx hosts."
 }
-output "esxi_passwords" {
-  value       = pnap_server.esxi_hosts[*].root_password
-  description = "The root passwords for the ESXi hosts"
+
+output "esx_passwords" {
+  value       = pnap_server.esx_hosts[*].root_password
+  description = "The root passwords for the esx hosts"
 }
 
 output "bastion_ip" {
@@ -29,4 +31,14 @@ output "pub_vlan_id" {
 output "priv_vlan_id" {
   value       = local.priv_network.vlan_id
   description = "Private Networks vLan ID"
+}
+
+output "pub_cidr" {
+  value       = local.ip_block.cidr
+  description = "Public Network CIDR"
+}
+
+output "priv_cidr" {
+  value       = local.priv_network.cidr
+  description = "Private Network CIDR"
 }
