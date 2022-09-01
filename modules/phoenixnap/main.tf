@@ -81,7 +81,7 @@ resource "pnap_server" "bastion_host" {
       private_networks {
         server_private_network {
           id  = local.priv_network.id
-          ips = [cidrhost(local.priv_network.cidr, 2)]
+          ips = [cidrhost(local.priv_network.cidr, 1)]
         }
       }
     }
@@ -126,13 +126,15 @@ resource "pnap_server" "esx_hosts" {
       private_networks {
         server_private_network {
           id  = local.priv_network.id
-          ips = [cidrhost(local.priv_network.cidr, count.index + 4)]
+          ips = [cidrhost(local.priv_network.cidr, count.index + 3)]
         }
       }
     }
     ip_blocks_configuration {
       configuration_type = "NONE"
     }
+    # TODO: This should work... But PNAP is being goofy.
+    #gateway_address = cidrhost(local.priv_network.cidr, 1)
   }
   lifecycle {
     ignore_changes = all

@@ -1,7 +1,7 @@
-output "esx_pub_ips" {
-  value       = [for pub_ip in pnap_server.esx_hosts.*.public_ip_addresses : element(tolist(pub_ip), 0)]
-  description = "The public IPs of the esx hosts."
-}
+#output "esx_pub_ips" {
+#  value       = [for pub_ip in pnap_server.esx_hosts.*.public_ip_addresses : element(tolist(pub_ip), 0)]
+#  description = "The public IPs of the esx hosts."
+#}
 
 output "esx_priv_ips" {
   value       = [for priv_ip in pnap_server.esx_hosts.*.private_ip_addresses : element(tolist(priv_ip), 0)]
@@ -9,8 +9,8 @@ output "esx_priv_ips" {
 }
 
 output "esx_passwords" {
-  value       = pnap_server.esx_hosts[*].root_password
-  description = "The root passwords for the esx hosts"
+  value       = [for password in pnap_server.esx_hosts.*.root_password : base64encode(password)]
+  description = "The base64 encoded root passwords for the esx hosts"
 }
 
 output "bastion_ip" {

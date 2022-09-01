@@ -1,0 +1,16 @@
+[all:vars]
+pub_cidr=${pub_cidr}
+priv_cidr=${priv_cidr}
+cluster_name=${cluster_name}
+username=${username}
+esx_node_count=${esx_node_count}
+gcp_project_id=${gcp_project_id}
+home_path=${home_path}
+esx_passwords=${esx_passwords}
+pub_vlan_id=${pub_vlan_id}
+priv_vlan_id=${priv_vlan_id}
+[bastion]
+127.0.0.1
+[vcenter]
+${vcenter_ip}
+[esx]

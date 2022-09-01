@@ -2,6 +2,7 @@ locals {
   git_repo_name           = "ansible-gcpartner-anthos-vsphere"
   ansible_execute_timeout = 1800
   unix_home               = var.bastion_user == "root" ? "/root" : "/home/${var.bastion_user}"
+  vcenter_ip              = cidrhost(var.priv_cidr, 2)
 }
 
 resource "null_resource" "write_ssh_private_key" {
@@ -94,6 +95,22 @@ resource "null_resource" "download_ansible_playbook" {
   }
 }
 
+data "template_file" "ansible_inventory" {
+  template = file("${path.module}/templates/inventory.tmpl")
+  vars = {
+    pub_cidr       = var.pub_cidr
+    priv_cidr      = var.priv_cidr
+    cluster_name   = var.cluster_name
+    username       = var.bastion_user
+    esx_node_count = var.esx_node_count
+    gcp_project_id = var.gcp_project_id
+    home_path      = local.unix_home
+    esx_passwords  = jsonencode(var.esx_passwords)
+    pub_vlan_id    = var.pub_vlan_id
+    priv_vlan_id   = var.priv_vlan_id
+    vcenter_ip     = local.vcenter_ip
+  }
+}
 resource "null_resource" "write_ansible_inventory_header" {
   depends_on = [
     null_resource.download_ansible_playbook
@@ -106,22 +123,9 @@ resource "null_resource" "write_ansible_inventory_header" {
     host        = var.bastion_ip
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '[all:vars]' > $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'pub_cidr=${var.pub_cidr}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'priv_cidr=${var.priv_cidr}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'cluster_name=${var.cluster_name}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'username=${var.bastion_user}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'esx_node_count=${var.esx_node_count}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo 'gcp_project_id=${var.gcp_project_id}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo home_path=$HOME >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '[bastion]' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '127.0.0.1' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '[vcenter]' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '${cidrhost(var.priv_cidr, 4)}' >> $HOME/bootstrap/${local.git_repo_name}/inventory",
-      "echo '[esx]' >> $HOME/bootstrap/${local.git_repo_name}/inventory"
-    ]
+  provisioner "file" {
+    content     = data.template_file.ansible_inventory.rendered
+    destination = "${local.unix_home}/bootstrap/${local.git_repo_name}/inventory"
   }
 }
 
@@ -169,7 +173,7 @@ resource "null_resource" "execute_ansible" {
       "start=3",
       "while [ $start -gt 0 ]",
       "do",
-      "/usr/bin/timeout ${local.ansible_execute_timeout} ansible-playbook -i inventory site.yaml -b",
+      "/usr/bin/timeout ${local.ansible_execute_timeout} ansible-playbook --extra-vars=\"ansible_python_interpreter=$(which python)\" -bi inventory site.yaml ",
       "if [ $? -eq 0 ]; then",
       "break",
       "fi",

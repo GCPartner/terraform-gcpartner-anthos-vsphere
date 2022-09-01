@@ -1,7 +1,7 @@
-output "esx_pub_ips" {
-  value       = local.esx_pub_ips
-  description = "The public IPs of the esx hosts."
-}
+#output "esx_pub_ips" {
+#  value       = local.esx_pub_ips
+#  description = "The public IPs of the esx hosts."
+#}
 
 output "esx_priv_ips" {
   value       = local.esx_priv_ips
@@ -10,7 +10,7 @@ output "esx_priv_ips" {
 
 output "esx_passwords" {
   value       = local.esx_passwords
-  description = "The root passwords for the esx hosts"
+  description = "The base64 encoded root passwords for the esx hosts"
 }
 
 output "bastion_ip" {

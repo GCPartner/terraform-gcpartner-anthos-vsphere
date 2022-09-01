@@ -31,10 +31,10 @@ variable "bastion_user" {
   description = "The username used to ssh to hosts"
 }
 
-variable "esx_pub_ips" {
-  type        = list(string)
-  description = "The public IP addresses for esx Hosts"
-}
+#variable "esx_pub_ips" {
+#  type        = list(string)
+#  description = "The public IP addresses for esx Hosts"
+#}
 
 variable "esx_priv_ips" {
   type        = list(string)

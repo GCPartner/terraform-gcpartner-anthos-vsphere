@@ -59,13 +59,13 @@ module "PNAP_Infra" {
 }
 
 locals {
-  pnap_bastion_ip    = var.cloud == "PNAP" ? module.PNAP_Infra.0.bastion_ip : ""
-  pnap_bastion_user  = var.cloud == "PNAP" ? module.PNAP_Infra.0.bastion_user : ""
-  pnap_pub_vlan_id   = var.cloud == "PNAP" ? module.PNAP_Infra.0.pub_vlan_id : ""
-  pnap_priv_vlan_id  = var.cloud == "PNAP" ? module.PNAP_Infra.0.priv_vlan_id : ""
-  pnap_pub_cidr      = var.cloud == "PNAP" ? module.PNAP_Infra.0.pub_cidr : ""
-  pnap_priv_cidr     = var.cloud == "PNAP" ? module.PNAP_Infra.0.priv_cidr : ""
-  pnap_esx_pub_ips   = var.cloud == "PNAP" ? module.PNAP_Infra.0.esx_pub_ips : []
+  pnap_bastion_ip   = var.cloud == "PNAP" ? module.PNAP_Infra.0.bastion_ip : ""
+  pnap_bastion_user = var.cloud == "PNAP" ? module.PNAP_Infra.0.bastion_user : ""
+  pnap_pub_vlan_id  = var.cloud == "PNAP" ? module.PNAP_Infra.0.pub_vlan_id : ""
+  pnap_priv_vlan_id = var.cloud == "PNAP" ? module.PNAP_Infra.0.priv_vlan_id : ""
+  pnap_pub_cidr     = var.cloud == "PNAP" ? module.PNAP_Infra.0.pub_cidr : ""
+  pnap_priv_cidr    = var.cloud == "PNAP" ? module.PNAP_Infra.0.priv_cidr : ""
+  #pnap_esx_pub_ips   = var.cloud == "PNAP" ? module.PNAP_Infra.0.esx_pub_ips : []
   pnap_esx_priv_ips  = var.cloud == "PNAP" ? module.PNAP_Infra.0.esx_priv_ips : []
   pnap_esx_passwords = var.cloud == "PNAP" ? module.PNAP_Infra.0.esx_passwords : []
   bastion_ip         = coalesce(local.pnap_bastion_ip)
@@ -74,9 +74,9 @@ locals {
   priv_vlan_id       = coalesce(local.pnap_priv_vlan_id)
   pub_cidr           = coalesce(local.pnap_pub_cidr)
   priv_cidr          = coalesce(local.pnap_priv_cidr)
-  esx_pub_ips        = coalescelist(local.pnap_esx_pub_ips)
-  esx_priv_ips       = coalescelist(local.pnap_esx_priv_ips)
-  esx_passwords      = coalescelist(local.pnap_esx_passwords)
+  #esx_pub_ips        = coalescelist(local.pnap_esx_pub_ips)
+  esx_priv_ips  = coalescelist(local.pnap_esx_priv_ips)
+  esx_passwords = coalescelist(local.pnap_esx_passwords)
 }
 
 module "Ansible_Bootstrap" {
@@ -89,11 +89,11 @@ module "Ansible_Bootstrap" {
     private_key = chomp(tls_private_key.ssh_key_pair.private_key_pem)
     public_key  = chomp(tls_private_key.ssh_key_pair.public_key_openssh)
   }
-  bastion_ip               = local.bastion_ip
-  bastion_user             = local.bastion_user
-  pub_vlan_id              = local.pub_vlan_id
-  priv_vlan_id             = local.priv_vlan_id
-  esx_pub_ips              = local.esx_pub_ips
+  bastion_ip   = local.bastion_ip
+  bastion_user = local.bastion_user
+  pub_vlan_id  = local.pub_vlan_id
+  priv_vlan_id = local.priv_vlan_id
+  #esx_pub_ips              = local.esx_pub_ips
   esx_priv_ips             = local.esx_priv_ips
   esx_passwords            = local.esx_passwords
   ansible_tar_ball         = var.ansible_tar_ball
