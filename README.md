@@ -42,9 +42,8 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 
 | Name | Description |
 |------|-------------|
-| <a name="output_esx_pub_ips"></a> [esx\_pub\_ips](#output\_esx\_pub\_ips) | The public IPs of the esx hosts. |
 | <a name="output_esx_priv_ips"></a> [esx\_priv\_ips](#output\_esx\_priv\_ips) | The private IPs for the esx hosts. |
-| <a name="output_esx_passwords"></a> [esx\_passwords](#output\_esx\_passwords) | The root passwords for the esx hosts |
+| <a name="output_esx_passwords"></a> [esx\_passwords](#output\_esx\_passwords) | The base64 encoded root passwords for the esx hosts |
 | <a name="output_bastion_ip"></a> [bastion\_ip](#output\_bastion\_ip) | IP Address of the bastion host in the test environment |
 | <a name="output_ssh_key_path"></a> [ssh\_key\_path](#output\_ssh\_key\_path) | Path to the SSH Private key for the bastion host |
 | <a name="output_ssh_command"></a> [ssh\_command](#output\_ssh\_command) | Command to run to SSH into the bastion host |

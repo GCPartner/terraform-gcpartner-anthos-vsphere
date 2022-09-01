@@ -9,7 +9,6 @@
 | <a name="input_ansible_url"></a> [ansible\_url](#input\_ansible\_url) | URL of the ansible code | `string` | n/a | yes |
 | <a name="input_ansible_tar_ball"></a> [ansible\_tar\_ball](#input\_ansible\_tar\_ball) | Tarball of the ansible code | `string` | n/a | yes |
 | <a name="input_bastion_user"></a> [bastion\_user](#input\_bastion\_user) | The username used to ssh to hosts | `string` | n/a | yes |
-| <a name="input_esx_pub_ips"></a> [esx\_pub\_ips](#input\_esx\_pub\_ips) | The public IP addresses for esx Hosts | `list(string)` | n/a | yes |
 | <a name="input_esx_priv_ips"></a> [esx\_priv\_ips](#input\_esx\_priv\_ips) | The private IP addresses for esx Hosts | `list(string)` | n/a | yes |
 | <a name="input_pub_cidr"></a> [pub\_cidr](#input\_pub\_cidr) | The public IP CIDR | `string` | n/a | yes |
 | <a name="input_priv_cidr"></a> [priv\_cidr](#input\_priv\_cidr) | The private IP CIDR | `string` | n/a | yes |

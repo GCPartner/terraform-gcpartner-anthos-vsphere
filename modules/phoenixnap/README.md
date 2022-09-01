@@ -19,9 +19,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_esx_pub_ips"></a> [esx\_pub\_ips](#output\_esx\_pub\_ips) | The public IPs of the esx hosts. |
 | <a name="output_esx_priv_ips"></a> [esx\_priv\_ips](#output\_esx\_priv\_ips) | The private IPs for the esx hosts. |
-| <a name="output_esx_passwords"></a> [esx\_passwords](#output\_esx\_passwords) | The root passwords for the esx hosts |
+| <a name="output_esx_passwords"></a> [esx\_passwords](#output\_esx\_passwords) | The base64 encoded root passwords for the esx hosts |
 | <a name="output_bastion_ip"></a> [bastion\_ip](#output\_bastion\_ip) | Bastion Host IP |
 | <a name="output_bastion_user"></a> [bastion\_user](#output\_bastion\_user) | Bastion Host username |
 | <a name="output_pub_vlan_id"></a> [pub\_vlan\_id](#output\_pub\_vlan\_id) | Public Networks vLan ID |
