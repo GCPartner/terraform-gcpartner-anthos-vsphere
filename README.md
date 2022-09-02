@@ -20,7 +20,7 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | <a name="input_s3_access_key"></a> [s3\_access\_key](#input\_s3\_access\_key) | This is the access key for your S3 endpoint | `string` | `"S3_ACCESS_KEY"` | no |
 | <a name="input_s3_secret_key"></a> [s3\_secret\_key](#input\_s3\_secret\_key) | This is the secret key for your S3 endpoint | `string` | `"S3_SECRET_KEY"` | no |
 | <a name="input_s3_version"></a> [s3\_version](#input\_s3\_version) | S3 API Version (S3v2, S3v4) | `string` | `"S3v4"` | no |
-| <a name="input_object_store_tool"></a> [object\_store\_tool](#input\_object\_store\_tool) | Which tool should you use to download objects from the object store? ('mc' and 'gcs' have been tested.) | `string` | `"mc"` | no |
+| <a name="input_object_store_tool"></a> [object\_store\_tool](#input\_object\_store\_tool) | Which tool should you use to download objects from the object store? ('mc' and 'gcs' have been tested.) | `string` | `"gcs"` | no |
 | <a name="input_object_store_bucket_name"></a> [object\_store\_bucket\_name](#input\_object\_store\_bucket\_name) | This is the name of the bucket on your Object Store | `string` | `"vmware"` | no |
 | <a name="input_gcs_key_name"></a> [gcs\_key\_name](#input\_gcs\_key\_name) | If you are using GCS to download your vCenter ISO this is the name of the GCS key | `string` | `"storage-reader-key.json"` | no |
 | <a name="input_path_to_gcs_key"></a> [path\_to\_gcs\_key](#input\_path\_to\_gcs\_key) | If you are using GCS to download your vCenter ISO this is the absolute path to the GCS key (ex: /home/example/storage-reader-key.json) | `string` | `"null"` | no |
