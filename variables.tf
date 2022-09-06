@@ -74,14 +74,8 @@ variable "s3_secret_key" {
   default     = "S3_SECRET_KEY"
 }
 
-variable "s3_version" {
-  description = "S3 API Version (S3v2, S3v4)"
-  type        = string
-  default     = "S3v4"
-}
-
-variable "object_store_tool" {
-  description = "Which tool should you use to download objects from the object store? ('mc' and 'gcs' have been tested.)"
+variable "object_store_api" {
+  description = "Which api should you use to download objects from the object store? ('gcs' and 's3' are supported.)"
   type        = string
   default     = "gcs"
 }
@@ -90,24 +84,6 @@ variable "object_store_bucket_name" {
   description = "This is the name of the bucket on your Object Store"
   type        = string
   default     = "vmware"
-}
-
-variable "gcs_key_name" {
-  description = "If you are using GCS to download your vCenter ISO this is the name of the GCS key"
-  type        = string
-  default     = "storage-reader-key.json"
-}
-
-variable "path_to_gcs_key" {
-  description = "If you are using GCS to download your vCenter ISO this is the absolute path to the GCS key (ex: /home/example/storage-reader-key.json)"
-  type        = string
-  default     = "null"
-}
-
-variable "relative_path_to_gcs_key" {
-  description = "(Deprecated: use path_to_gcs_key) If you are using GCS to download your vCenter ISO this is the path to the GCS key"
-  type        = string
-  default     = "null"
 }
 
 variable "vcenter_iso_name" {

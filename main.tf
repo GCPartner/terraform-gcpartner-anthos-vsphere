@@ -89,11 +89,10 @@ module "Ansible_Bootstrap" {
     private_key = chomp(tls_private_key.ssh_key_pair.private_key_pem)
     public_key  = chomp(tls_private_key.ssh_key_pair.public_key_openssh)
   }
-  bastion_ip   = local.bastion_ip
-  bastion_user = local.bastion_user
-  pub_vlan_id  = local.pub_vlan_id
-  priv_vlan_id = local.priv_vlan_id
-  #esx_pub_ips              = local.esx_pub_ips
+  bastion_ip               = local.bastion_ip
+  bastion_user             = local.bastion_user
+  pub_vlan_id              = local.pub_vlan_id
+  priv_vlan_id             = local.priv_vlan_id
   esx_priv_ips             = local.esx_priv_ips
   esx_passwords            = local.esx_passwords
   ansible_tar_ball         = var.ansible_tar_ball
@@ -105,4 +104,10 @@ module "Ansible_Bootstrap" {
   pub_cidr                 = local.pub_cidr
   priv_cidr                = local.priv_cidr
   cluster_name             = local.cluster_name
+  object_store_bucket_name = var.object_store_bucket_name
+  vcenter_iso_name         = var.vcenter_iso_name
+  s3_url                   = var.s3_url
+  s3_access_key            = var.s3_access_key
+  s3_secret_key            = var.s3_secret_key
+  object_store_api         = var.object_store_api
 }

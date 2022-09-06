@@ -109,8 +109,15 @@ data "template_file" "ansible_inventory" {
     pub_vlan_id    = var.pub_vlan_id
     priv_vlan_id   = var.priv_vlan_id
     vcenter_ip     = local.vcenter_ip
+    object_store_bucket_name = var.object_store_bucket_name
+    vcenter_iso_name         = var.vcenter_iso_name
+    s3_url                   = var.s3_url
+    s3_access_key            = var.s3_access_key
+    s3_secret_key            = var.s3_secret_key
+    object_store_api         = var.object_store_api
   }
 }
+
 resource "null_resource" "write_ansible_inventory_header" {
   depends_on = [
     null_resource.download_ansible_playbook

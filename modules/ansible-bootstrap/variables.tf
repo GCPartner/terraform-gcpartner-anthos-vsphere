@@ -31,11 +31,6 @@ variable "bastion_user" {
   description = "The username used to ssh to hosts"
 }
 
-#variable "esx_pub_ips" {
-#  type        = list(string)
-#  description = "The public IP addresses for esx Hosts"
-#}
-
 variable "esx_priv_ips" {
   type        = list(string)
   description = "The private IP addresses for esx Hosts"
@@ -83,5 +78,37 @@ variable "esx_passwords" {
 
 variable "cluster_name" {
   description = "This will be the name of the k8s cluster"
+  type        = string
+}
+
+variable "s3_url" {
+  description = "This is the URL endpoint to connect your s3 client to"
+  type        = string
+}
+
+variable "s3_access_key" {
+  description = "This is the access key for your S3 endpoint"
+  type        = string
+  sensitive   = true
+}
+
+variable "s3_secret_key" {
+  description = "This is the secret key for your S3 endpoint"
+  type        = string
+  sensitive   = true
+}
+
+variable "object_store_api" {
+  description = "Which api should you use to download objects from the object store? ('gcs' and 's3' are supported.)"
+  type        = string
+}
+
+variable "object_store_bucket_name" {
+  description = "This is the name of the bucket on your Object Store"
+  type        = string
+}
+
+variable "vcenter_iso_name" {
+  description = "The name of the vCenter ISO in your Object Store"
   type        = string
 }
