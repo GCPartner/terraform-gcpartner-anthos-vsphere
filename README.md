@@ -19,12 +19,8 @@ This [Terraform](http://terraform.io) module will allow you to deploy [Google Cl
 | <a name="input_s3_url"></a> [s3\_url](#input\_s3\_url) | This is the URL endpoint to connect your s3 client to | `string` | `"https://s3.example.com"` | no |
 | <a name="input_s3_access_key"></a> [s3\_access\_key](#input\_s3\_access\_key) | This is the access key for your S3 endpoint | `string` | `"S3_ACCESS_KEY"` | no |
 | <a name="input_s3_secret_key"></a> [s3\_secret\_key](#input\_s3\_secret\_key) | This is the secret key for your S3 endpoint | `string` | `"S3_SECRET_KEY"` | no |
-| <a name="input_s3_version"></a> [s3\_version](#input\_s3\_version) | S3 API Version (S3v2, S3v4) | `string` | `"S3v4"` | no |
-| <a name="input_object_store_tool"></a> [object\_store\_tool](#input\_object\_store\_tool) | Which tool should you use to download objects from the object store? ('mc' and 'gcs' have been tested.) | `string` | `"gcs"` | no |
+| <a name="input_object_store_api"></a> [object\_store\_api](#input\_object\_store\_api) | Which api should you use to download objects from the object store? ('gcs' and 's3' are supported.) | `string` | `"gcs"` | no |
 | <a name="input_object_store_bucket_name"></a> [object\_store\_bucket\_name](#input\_object\_store\_bucket\_name) | This is the name of the bucket on your Object Store | `string` | `"vmware"` | no |
-| <a name="input_gcs_key_name"></a> [gcs\_key\_name](#input\_gcs\_key\_name) | If you are using GCS to download your vCenter ISO this is the name of the GCS key | `string` | `"storage-reader-key.json"` | no |
-| <a name="input_path_to_gcs_key"></a> [path\_to\_gcs\_key](#input\_path\_to\_gcs\_key) | If you are using GCS to download your vCenter ISO this is the absolute path to the GCS key (ex: /home/example/storage-reader-key.json) | `string` | `"null"` | no |
-| <a name="input_relative_path_to_gcs_key"></a> [relative\_path\_to\_gcs\_key](#input\_relative\_path\_to\_gcs\_key) | (Deprecated: use path\_to\_gcs\_key) If you are using GCS to download your vCenter ISO this is the path to the GCS key | `string` | `"null"` | no |
 | <a name="input_vcenter_iso_name"></a> [vcenter\_iso\_name](#input\_vcenter\_iso\_name) | The name of the vCenter ISO in your Object Store | `string` | `"null"` | no |
 | <a name="input_ansible_playbook_version"></a> [ansible\_playbook\_version](#input\_ansible\_playbook\_version) | The version of the ansible playbook to install | `string` | `"v0.0.1"` | no |
 | <a name="input_ansible_url"></a> [ansible\_url](#input\_ansible\_url) | URL of the ansible code | `string` | `"https://github.com/GCPartner/ansible-gcpartner-anthos-vsphere/archive/refs/tags/v0.0.1.tar.gz"` | no |
