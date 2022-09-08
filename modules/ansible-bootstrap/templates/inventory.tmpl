@@ -1,0 +1,25 @@
+[all:vars]
+pub_cidr=${pub_cidr}
+priv_cidr=${priv_cidr}
+cluster_name=${cluster_name}
+username=${username}
+esx_node_count=${esx_node_count}
+gcp_project_id=${gcp_project_id}
+home_path=${home_path}
+esx_passwords=${esx_passwords}
+pub_vlan_id=${pub_vlan_id}
+priv_vlan_id=${priv_vlan_id}
+object_store_bucket_name=${object_store_bucket_name}
+vcenter_iso_name=${vcenter_iso_name}
+s3_url=${s3_url}
+s3_access_key=${s3_access_key}
+s3_secret_key=${s3_secret_key}
+object_store_api=${object_store_api}
+vcenter_datacenter_name=${vcenter_datacenter_name}
+vcenter_cluster_name=${vcenter_cluster_name}
+vcenter_domain=${vcenter_domain}
+[bastion]
+127.0.0.1 ansible_python_interpreter="{{ home_path }}/bootstrap/ansible/bin/python"
+[vcenter]
+${vcenter_ip}
+[esx]
