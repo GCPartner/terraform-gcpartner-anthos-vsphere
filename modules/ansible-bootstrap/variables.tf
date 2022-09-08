@@ -11,11 +11,6 @@ variable "bastion_ip" {
   description = "The bastion host/admin workstation public IP Address"
 }
 
-variable "ansible_playbook_version" {
-  type        = string
-  description = "The version of the ansible playbook to install"
-}
-
 variable "ansible_url" {
   type        = string
   description = "URL of the ansible code"
@@ -110,5 +105,20 @@ variable "object_store_bucket_name" {
 
 variable "vcenter_iso_name" {
   description = "The name of the vCenter ISO in your Object Store"
+  type        = string
+}
+
+variable "vcenter_datacenter_name" {
+  description = "This will be the name of the vCenter Datacenter object."
+  type        = string
+}
+
+variable "vcenter_cluster_name" {
+  description = "This will be the name of the vCenter Cluster object."
+  type        = string
+}
+
+variable "vcenter_domain" {
+  description = "This will be the vSphere SSO domain."
   type        = string
 }

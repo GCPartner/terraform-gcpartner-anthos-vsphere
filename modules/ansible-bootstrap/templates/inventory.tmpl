@@ -15,8 +15,11 @@ s3_url=${s3_url}
 s3_access_key=${s3_access_key}
 s3_secret_key=${s3_secret_key}
 object_store_api=${object_store_api}
+vcenter_datacenter_name=${vcenter_datacenter_name}
+vcenter_cluster_name=${vcenter_cluster_name}
+vcenter_domain=${vcenter_domain}
 [bastion]
-127.0.0.1
+127.0.0.1 ansible_python_interpreter="{{ home_path }}/bootstrap/ansible/bin/python"
 [vcenter]
 ${vcenter_ip}
 [esx]

@@ -98,23 +98,26 @@ resource "null_resource" "download_ansible_playbook" {
 data "template_file" "ansible_inventory" {
   template = file("${path.module}/templates/inventory.tmpl")
   vars = {
-    pub_cidr       = var.pub_cidr
-    priv_cidr      = var.priv_cidr
-    cluster_name   = var.cluster_name
-    username       = var.bastion_user
-    esx_node_count = var.esx_node_count
-    gcp_project_id = var.gcp_project_id
-    home_path      = local.unix_home
-    esx_passwords  = jsonencode(var.esx_passwords)
-    pub_vlan_id    = var.pub_vlan_id
-    priv_vlan_id   = var.priv_vlan_id
-    vcenter_ip     = local.vcenter_ip
+    pub_cidr                 = var.pub_cidr
+    priv_cidr                = var.priv_cidr
+    cluster_name             = var.cluster_name
+    username                 = var.bastion_user
+    esx_node_count           = var.esx_node_count
+    gcp_project_id           = var.gcp_project_id
+    home_path                = local.unix_home
+    esx_passwords            = jsonencode(var.esx_passwords)
+    pub_vlan_id              = var.pub_vlan_id
+    priv_vlan_id             = var.priv_vlan_id
+    vcenter_ip               = local.vcenter_ip
     object_store_bucket_name = var.object_store_bucket_name
     vcenter_iso_name         = var.vcenter_iso_name
     s3_url                   = var.s3_url
     s3_access_key            = var.s3_access_key
     s3_secret_key            = var.s3_secret_key
     object_store_api         = var.object_store_api
+    vcenter_datacenter_name  = var.vcenter_datacenter_name
+    vcenter_cluster_name     = var.vcenter_cluster_name
+    vcenter_domain           = var.vcenter_domain
   }
 }
 
@@ -180,7 +183,7 @@ resource "null_resource" "execute_ansible" {
       "start=3",
       "while [ $start -gt 0 ]",
       "do",
-      "/usr/bin/timeout ${local.ansible_execute_timeout} ansible-playbook --extra-vars=\"ansible_python_interpreter=$(which python)\" -bi inventory site.yaml ",
+      "/usr/bin/timeout ${local.ansible_execute_timeout} ansible-playbook -bi inventory site.yaml ",
       "if [ $? -eq 0 ]; then",
       "break",
       "fi",

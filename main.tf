@@ -97,7 +97,6 @@ module "Ansible_Bootstrap" {
   esx_passwords            = local.esx_passwords
   ansible_tar_ball         = var.ansible_tar_ball
   ansible_url              = var.ansible_url
-  ansible_playbook_version = var.ansible_playbook_version
   gcp_master_sa_key        = module.GCP_Auth.master_sa_key
   esx_node_count           = var.esx_node_count
   gcp_project_id           = var.gcp_project_id
@@ -110,4 +109,7 @@ module "Ansible_Bootstrap" {
   s3_access_key            = var.s3_access_key
   s3_secret_key            = var.s3_secret_key
   object_store_api         = var.object_store_api
+  vcenter_datacenter_name  = var.vcenter_datacenter_name
+  vcenter_cluster_name     = var.vcenter_cluster_name
+  vcenter_domain           = var.vcenter_domain
 }

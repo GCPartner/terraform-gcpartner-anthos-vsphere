@@ -74,7 +74,6 @@ resource "pnap_server" "bastion_host" {
   ssh_keys = [
     var.ssh_key.public_key
   ]
-  management_access_allowed_ips = ["0.0.0.0/0"]
   network_configuration {
     private_network_configuration {
       configuration_type = "USER_DEFINED"

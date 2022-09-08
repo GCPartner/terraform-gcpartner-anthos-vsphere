@@ -47,12 +47,6 @@ variable "vcenter_domain" {
   default     = "vsphere.local"
 }
 
-variable "vcenter_user_name" {
-  description = "This will be the admin user for vSphere SSO"
-  type        = string
-  default     = "Administrator"
-}
-
 # Object Store Vars
 variable "s3_url" {
   description = "This is the URL endpoint to connect your s3 client to"
@@ -93,12 +87,6 @@ variable "vcenter_iso_name" {
 }
 
 # Ansible Vars
-variable "ansible_playbook_version" {
-  type        = string
-  description = "The version of the ansible playbook to install"
-  default     = "v0.0.1"
-}
-
 variable "ansible_url" {
   type        = string
   description = "URL of the ansible code"
